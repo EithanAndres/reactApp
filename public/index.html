@@ -1,43 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<html>
+<head>
+  <title>Comidas Típicas de Ecuador</title>
+  <style>
+    /* Estilos CSS para el menú */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      padding: 12px 16px;
+    }
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  </style>
+  <script src="script.js"></script>
+</head>
+<body>
+  <h1>Comidas Típicas de Ecuador</h1>
+  
+  <div class="dropdown">
+    <button class="dropbtn">Regiones</button>
+    <div class="dropdown-content">
+      <a href="#" onclick="mostrarComidas('costa')">Costa</a>
+      <a href="#" onclick="mostrarComidas('sierra')">Sierra</a>
+      <a href="#" onclick="mostrarComidas('amazonia')">Amazonía</a>
+      <a href="#" onclick="mostrarComidas('galapagos')">Galápagos</a>
+    </div>
+  </div>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+  <div id="comidas">
+    <!-- Aquí se mostrarán las comidas típicas -->
+  </div>
+
+  <script>
+    function mostrarComidas(region) {
+      var comidasDiv = document.getElementById('comidas');
+      comidasDiv.innerHTML = '';
+
+      var comidas = obtenerComidasPorRegion(region);
+
+      if (comidas.length > 0) {
+        var listaComidas = document.createElement('ul');
+
+        for (var i = 0; i < comidas.length; i++) {
+          var comida = document.createElement('li');
+          comida.textContent = comidas[i];
+          listaComidas.appendChild(comida);
+        }
+
+        comidasDiv.appendChild(listaComidas);
+      } else {
+        comidasDiv.textContent = 'No se encontraron comidas para esta región.';
+      }
+    }
+
+    function obtenerComidasPorRegion(region) {
+      var comidas = [];
+
+      if (region === 'costa') {
+        comidas = ['Ceviche', 'Encebollado', 'Guatita'];
+      } else if (region === 'sierra') {
+        comidas = ['Cuy asado', 'Hornado', 'Llapingachos'];
+      } else if (region === 'amazonia') {
+        comidas = ['Maito de pescado', 'Suri', 'Yuca con chicha'];
+      } else if (region === 'galapagos') {
+        comidas = ['Pescado encocado', 'Lobster', 'Locro de papa'];
+      }
+
+      return comidas;
+    }
+  </script>
+</body>
 </html>
